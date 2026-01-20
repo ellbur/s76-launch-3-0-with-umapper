@@ -358,11 +358,11 @@ void register_mouse(uint8_t mouse_keycode, bool pressed) {
 #endif
 }
 
-/** \brief Take an action and processes it.
+/** \brief Take an action and processes it (default implementation).
  *
  * FIXME: Needs documentation.
  */
-void process_action(keyrecord_t *record, action_t action) {
+void process_action_default(keyrecord_t *record, action_t action) {
     keyevent_t event = record->event;
 #ifndef NO_ACTION_TAPPING
     uint8_t tap_count = record->tap.count;
@@ -868,6 +868,15 @@ void process_action(keyrecord_t *record, action_t action) {
         layer_off(get_oneshot_layer());
     }
 #endif
+}
+
+/** \brief Take an action and processes it (can be overridden for custom remapping).
+ *
+ * This is a weak symbol that can be overridden in keyboard/keymap code to implement
+ * custom key remapping. The default implementation just calls process_action_default().
+ */
+__attribute__((weak)) void process_action(keyrecord_t *record, action_t action) {
+    process_action_default(record, action);
 }
 
 /** \brief Utilities for actions. (FIXME: Needs better description)
