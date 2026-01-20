@@ -143,7 +143,8 @@ void keyboard_post_init_user(void) {
     system76_ec_rgb_layer(layer_state);
     debug_enable   = true;
     debug_matrix   = true;
-    debug_keyboard = false;
+    debug_keyboard = true;
+    uprintf("keyboard_post_init_user()\n");
 }
 
 void matrix_scan_kb(void) {

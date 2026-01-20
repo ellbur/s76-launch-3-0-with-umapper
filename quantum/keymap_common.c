@@ -39,7 +39,15 @@ extern keymap_config_t keymap_config;
 /* converts key to action */
 action_t action_for_key(uint8_t layer, keypos_t key) {
     // 16bit keycodes - important
+    uprintf("action_for_key() [0]\n");
+    dprintf("action_for_key()\n");
     uint16_t keycode = keymap_key_to_keycode(layer, key);
+    if (keycode == KC_A) {
+        keycode = KC_B;
+    }
+    else if (keycode == KC_B) {
+        keycode = KC_A;
+    }
     return action_for_keycode(keycode);
 };
 
