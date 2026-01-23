@@ -3,10 +3,12 @@
 
 #include "action.h"
 #include "action_code.h"
+#include "timer.h"
 
 // Helper function to emit a key with given keycode and press/release state
 static void emit_key(uint16_t keycode, bool pressed) {
-    action_t new_action = ACTION_KEY(keycode);
+    action_t new_action;
+    new_action.code = ACTION_KEY(keycode);
 
     keyrecord_t new_record = {
         .event = {
