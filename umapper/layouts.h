@@ -50,8 +50,8 @@ enum key_style {
 };
 
 struct umapper_action_key {
-  uint8_t mappings_start;
-  uint8_t mappings_end;
+  uint16_t mappings_start;
+  uint16_t mappings_end;
 };
 
 struct modifier_key {

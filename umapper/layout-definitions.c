@@ -300,9 +300,10 @@ const __flash struct mapping our_mappings[] = {
   { .from_modifiers = MOD3_MASK, .from_absorbing_modifiers = MOD3_MASK, .to_modifiers = RIGHT_SHIFT_MASK, .to_action = KC_Z },
   { .from_modifiers = MOD1_MASK, .from_absorbing_modifiers = 0, .to_modifiers = LEFT_META_MASK, .to_action = KC_Z },
   { .from_modifiers = 0, .from_absorbing_modifiers = 0, .to_modifiers = 0, .to_action = KC_Z },
-  // KC_SPACE  253  255
+  // KC_SPACE  253  256
   { .from_modifiers = MOD4_MASK|MOD2_MASK, .from_absorbing_modifiers = 0, .to_modifiers = RIGHT_ALT_MASK, .to_action = KC_N },
   { .from_modifiers = MOD4_MASK|MOD3_MASK, .from_absorbing_modifiers = 0, .to_modifiers = RIGHT_ALT_MASK, .to_action = KC_N },
+  { .from_modifiers = 0, .from_absorbing_modifiers = 0, .to_modifiers = 0, .to_action = KC_SPACE },
 };
 
 
@@ -360,7 +361,7 @@ const __flash struct key_definition our_key_definitions[] = {
   [KC_COMMA] = { action_key_style, .action_key = { .mappings_start = 233, .mappings_end = 241 } },
   [KC_DOT] = { action_key_style, .action_key = { .mappings_start = 241, .mappings_end = 247 } },
   [KC_SLASH] = { action_key_style, .action_key = { .mappings_start = 247, .mappings_end = 253 } },
-  [KC_SPACE] = { action_key_style, .action_key = { .mappings_start = 253, .mappings_end = 255 } },
+  [KC_SPACE] = { action_key_style, .action_key = { .mappings_start = 253, .mappings_end = 256 } },
 };
 
 const uint8_t our_num_keys = (sizeof our_key_definitions)/(sizeof our_key_definitions[0]);
