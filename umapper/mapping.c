@@ -3,10 +3,10 @@
 #include "keys.h"
 
 static void release_modifiers(modifier_set mask, event_callback_t *cb, void *data) {
-  if (mask & LEFT_SHIFT_MASK) cb(data, RELEASED, KC_LSHIFT);
-  if (mask & RIGHT_SHIFT_MASK) cb(data, RELEASED, KC_RSHIFT);
-  if (mask & LEFT_CTRL_MASK) cb(data, RELEASED, KC_LCTRL);
-  if (mask & RIGHT_CTRL_MASK) cb(data, RELEASED, KC_RCTRL);
+  if (mask & LEFT_SHIFT_MASK) cb(data, RELEASED, KC_LSFT);
+  if (mask & RIGHT_SHIFT_MASK) cb(data, RELEASED, KC_RSFT);
+  if (mask & LEFT_CTRL_MASK) cb(data, RELEASED, KC_LCTL);
+  if (mask & RIGHT_CTRL_MASK) cb(data, RELEASED, KC_RCTL);
   if (mask & LEFT_ALT_MASK) cb(data, RELEASED, KC_LALT);
   if (mask & RIGHT_ALT_MASK) cb(data, RELEASED, KC_RALT);
   if (mask & LEFT_META_MASK) cb(data, RELEASED, KC_LGUI);
@@ -14,10 +14,10 @@ static void release_modifiers(modifier_set mask, event_callback_t *cb, void *dat
 }
 
 static void press_modifiers(modifier_set mask, event_callback_t *cb, void *data) {
-  if (mask & LEFT_SHIFT_MASK) cb(data, PRESSED, KC_LSHIFT);
-  if (mask & RIGHT_SHIFT_MASK) cb(data, PRESSED, KC_RSHIFT);
-  if (mask & LEFT_CTRL_MASK) cb(data, PRESSED, KC_LCTRL);
-  if (mask & RIGHT_CTRL_MASK) cb(data, PRESSED, KC_RCTRL);
+  if (mask & LEFT_SHIFT_MASK) cb(data, PRESSED, KC_LSFT);
+  if (mask & RIGHT_SHIFT_MASK) cb(data, PRESSED, KC_RSFT);
+  if (mask & LEFT_CTRL_MASK) cb(data, PRESSED, KC_LCTL);
+  if (mask & RIGHT_CTRL_MASK) cb(data, PRESSED, KC_RCTL);
   if (mask & LEFT_ALT_MASK) cb(data, PRESSED, KC_LALT);
   if (mask & RIGHT_ALT_MASK) cb(data, PRESSED, KC_RALT);
   if (mask & LEFT_META_MASK) cb(data, PRESSED, KC_LGUI);
@@ -104,7 +104,7 @@ static void newly_press(struct layout const *layout, struct state *state, key_co
     cb(data, PRESSED, k);
   }
   else if (layout->key_definitions[k].style == action_key_style) {
-    struct action_key const __flash *action_key = &layout->key_definitions[k].action_key;
+    struct umapper_action_key const __flash *action_key = &layout->key_definitions[k].action_key;
     for (uint8_t i=action_key->mappings_start; i<action_key->mappings_end; i++) {
       struct mapping const __flash *m = layout->mappings + i;
       if (!(m->from_modifiers & ~state->pressed_modifier_mask)) {
@@ -125,7 +125,7 @@ static void do_press(struct layout const *layout, struct state *state, key_code 
   }
 }
 
-static void remove_action_mapping(struct state *state, key_code k, struct action_key const *action_key, event_callback_t *cb, void *data) {
+static void remove_action_mapping(struct state *state, key_code k, struct umapper_action_key const *action_key, event_callback_t *cb, void *data) {
   if (state->has_pressed_action_key) {
     if (state->pressed_action_key.trigger == k) {
       cb(data, RELEASED, state->pressed_action_key.to_action);
@@ -196,7 +196,7 @@ static void newly_release(struct layout const *layout, struct state *state, key_
     cb(data, RELEASED, k);
   }
   else if (layout->key_definitions[k].style == action_key_style) {
-    struct action_key const *action_key = &layout->key_definitions[k].action_key;
+    struct umapper_action_key const *action_key = &layout->key_definitions[k].action_key;
     remove_action_mapping(state, k, action_key, cb, data);
   }
   else if (layout->key_definitions[k].style == modifier_key_style) {

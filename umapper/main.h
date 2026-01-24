@@ -1,8 +1,9 @@
 
 #pragma once
 
-#include "../tmk_core/common/keyboard.h"
+#include <stdint.h>
+#include <stdbool.h>
 
 void umapper_init(void);
-void umapper_action_exec(keyevent_t event);
+void umapper_process_key(uint16_t keycode, bool pressed);
 

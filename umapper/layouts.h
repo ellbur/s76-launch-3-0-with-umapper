@@ -1,7 +1,10 @@
 
 #pragma once
 
-#include <avr/pgmspace.h>
+// On AVR, __flash places data in flash memory. On ARM, const is sufficient.
+#ifndef __flash
+#define __flash
+#endif
 
 #include "keys.h"
 #include <inttypes.h>
@@ -46,7 +49,7 @@ enum key_style {
   modifier_key_style = 2,
 };
 
-struct action_key {
+struct umapper_action_key {
   uint8_t mappings_start;
   uint8_t mappings_end;
 };
@@ -59,7 +62,7 @@ struct modifier_key {
 struct key_definition {
   enum key_style style;
   union {
-    struct action_key action_key;
+    struct umapper_action_key action_key;
     struct modifier_key modifier_key;
   };
 };
