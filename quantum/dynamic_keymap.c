@@ -202,7 +202,6 @@ void dynamic_keymap_set_buffer(uint16_t offset, uint16_t size, uint8_t *data) {
 }
 
 uint16_t keycode_at_keymap_location(uint8_t layer_num, uint8_t row, uint8_t column) {
-    dprintf("keycode_at_keymap_location() [dynamic]\n");
     if (layer_num < DYNAMIC_KEYMAP_LAYER_COUNT && row < MATRIX_ROWS && column < MATRIX_COLS) {
         return dynamic_keymap_get_keycode(layer_num, row, column);
     }
