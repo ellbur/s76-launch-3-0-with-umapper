@@ -79,7 +79,7 @@ const __flash struct mapping our_mappings[] = {
   { .from_modifiers = MOD4_MASK|MOD3_MASK, .from_absorbing_modifiers = MOD3_MASK, .to_modifiers = RIGHT_ALT_MASK, .to_action = KC_F },
   { .from_modifiers = MOD2_MASK, .from_absorbing_modifiers = MOD2_MASK, .to_modifiers = LEFT_SHIFT_MASK, .to_action = KC_F },
   { .from_modifiers = MOD3_MASK, .from_absorbing_modifiers = MOD3_MASK, .to_modifiers = RIGHT_SHIFT_MASK, .to_action = KC_F },
-  { .from_modifiers = MOD4_MASK, .from_absorbing_modifiers = 0, .to_modifiers = 0, .to_action = KC_BSLASH },
+  { .from_modifiers = MOD4_MASK, .from_absorbing_modifiers = 0, .to_modifiers = 0, .to_action = KC_BSLS },
   { .from_modifiers = MOD1_MASK, .from_absorbing_modifiers = 0, .to_modifiers = LEFT_META_MASK, .to_action = KC_F },
   { .from_modifiers = 0, .from_absorbing_modifiers = 0, .to_modifiers = 0, .to_action = KC_F },
   // KC_U  65  73
@@ -113,7 +113,7 @@ const __flash struct mapping our_mappings[] = {
   { .from_modifiers = MOD4_MASK|MOD3_MASK, .from_absorbing_modifiers = MOD3_MASK, .to_modifiers = RIGHT_ALT_MASK, .to_action = KC_L },
   { .from_modifiers = MOD2_MASK, .from_absorbing_modifiers = MOD2_MASK, .to_modifiers = LEFT_SHIFT_MASK, .to_action = KC_L },
   { .from_modifiers = MOD3_MASK, .from_absorbing_modifiers = MOD3_MASK, .to_modifiers = RIGHT_SHIFT_MASK, .to_action = KC_L },
-  { .from_modifiers = MOD4_MASK, .from_absorbing_modifiers = 0, .to_modifiers = LEFT_SHIFT_MASK, .to_action = KC_BSLASH },
+  { .from_modifiers = MOD4_MASK, .from_absorbing_modifiers = 0, .to_modifiers = LEFT_SHIFT_MASK, .to_action = KC_BSLS },
   { .from_modifiers = MOD1_MASK, .from_absorbing_modifiers = 0, .to_modifiers = LEFT_META_MASK, .to_action = KC_L },
   { .from_modifiers = 0, .from_absorbing_modifiers = 0, .to_modifiers = 0, .to_action = KC_L },
   // KC_LBRACKET  95  102
@@ -220,7 +220,7 @@ const __flash struct mapping our_mappings[] = {
   { .from_modifiers = MOD4_MASK, .from_absorbing_modifiers = 0, .to_modifiers = LEFT_SHIFT_MASK, .to_action = KC_4 },
   { .from_modifiers = MOD1_MASK, .from_absorbing_modifiers = 0, .to_modifiers = LEFT_META_MASK, .to_action = KC_MINUS },
   { .from_modifiers = 0, .from_absorbing_modifiers = 0, .to_modifiers = 0, .to_action = KC_MINUS },
-  // KC_BSLASH  186  187
+  // KC_BSLS  186  187
   { .from_modifiers = 0, .from_absorbing_modifiers = 0, .to_modifiers = 0, .to_action = KC_TAB },
   // KC_Z  187  193
   { .from_modifiers = MOD4_MASK|MOD2_MASK, .from_absorbing_modifiers = MOD2_MASK, .to_modifiers = RIGHT_ALT_MASK, .to_action = KC_QUOTE },
@@ -347,7 +347,7 @@ const __flash struct key_definition our_key_definitions[] = {
   [KC_L] = { action_key_style, .action_key = { .mappings_start = 163, .mappings_end = 171 } },
   [KC_SCLN] = { action_key_style, .action_key = { .mappings_start = 171, .mappings_end = 179 } },
   [KC_QUOTE] = { action_key_style, .action_key = { .mappings_start = 179, .mappings_end = 186 } },
-  [KC_BSLASH] = { action_key_style, .action_key = { .mappings_start = 186, .mappings_end = 187 } },
+  [KC_BSLS] = { action_key_style, .action_key = { .mappings_start = 186, .mappings_end = 187 } },
   [KC_Z] = { action_key_style, .action_key = { .mappings_start = 187, .mappings_end = 193 } },
   [KC_X] = { action_key_style, .action_key = { .mappings_start = 193, .mappings_end = 199 } },
   [KC_C] = { action_key_style, .action_key = { .mappings_start = 199, .mappings_end = 205 } },
