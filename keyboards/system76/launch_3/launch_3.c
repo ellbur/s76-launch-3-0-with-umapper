@@ -129,6 +129,16 @@ void matrix_init_kb(void) {
     usb_mux_init();
 
     bootmagic_lite();
+#ifdef LAUNCH_3_HARDCODED_CONFIG
+    // Always use the keymap and LED settings built into the firmware, ignoring
+    // anything saved by the Configurator. Loading the keymap only writes bytes
+    // that differ, and layer_rgb keeps its compiled defaults.
+    dynamic_keymap_reset();
+    if (!eeprom_is_valid()) {
+        dynamic_keymap_macro_reset();
+        eeprom_set_valid(true);
+    }
+#else
     if (!eeprom_is_valid()) {
         dynamic_keymap_reset();
         dynamic_keymap_macro_reset();
@@ -137,6 +147,7 @@ void matrix_init_kb(void) {
     } else {
         system76_ec_rgb_eeprom(false);
     }
+#endif  // LAUNCH_3_HARDCODED_CONFIG
 }
 
 void keyboard_post_init_user(void) {

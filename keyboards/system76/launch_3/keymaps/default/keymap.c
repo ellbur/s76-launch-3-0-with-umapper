@@ -1,4 +1,9 @@
 #include QMK_KEYBOARD_H
+#include "process_action_remap.h"
+
+enum custom_keycodes {
+    UMAPPER_TOG = SAFE_RANGE,  // Turn umapper remapping on or off
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -45,7 +50,7 @@ ________________________________________________________________________________
 |PRINT SCREEN|        |        |        |        |        |  HOME  |  PGDN  |  PGUP  |  END   |        |        |        |        ||  DOWN  |
 |____________|________|________|________|________|________|________|________|________|________|________|________|________|________||________|
   |            |        |        |        |        |        |        |        |        |        |        |        |            |   |        |
-  |            |        |        |        |        |        |  LEFT  |  DOWN  |   UP   | RIGHT  |        |        |            |   |  MUTE  |
+  |  UMAPPER   |        |        |        |        |        |  LEFT  |  DOWN  |   UP   | RIGHT  |        |        |            |   |  MUTE  |
   |____________|________|________|________|________|________|________|________|________|________|________|________|____________|___|________|
   |                |        |        |        |        |        |        |        |        |        |        |            |        |
   |                |        |        |        |        |        |        |        |        |        |        |            |  PGUP  |
@@ -62,7 +67,7 @@ ________________________________________________________________________________
     QK_BOOT,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,     KC_MPLY,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, RGB_TOG, RGB_VAD, RGB_VAI, KC_TRNS,     KC_VOLU,
         KC_PSCR, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_VOLD,
-          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_TRNS, KC_TRNS,    KC_TRNS,     KC_MUTE,
+          UMAPPER_TOG, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_TRNS, KC_TRNS,    KC_TRNS,     KC_MUTE,
               KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS,  KC_PGUP,
           KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS,          KC_TRNS,      KC_TRNS, KC_TRNS, KC_TRNS,       KC_HOME,  KC_PGDN, KC_END
   ),
@@ -87,5 +92,28 @@ ________________________________________________________________________________
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case UMAPPER_TOG:
+            if (record->event.pressed) {
+                umapper_set_enabled(!umapper_is_enabled());
+            }
+            return false;
+    }
+
     return true;
 }
+
+#ifdef RGB_MATRIX_ENABLE
+// Light the Caps Lock key green when umapper is on and red when it is off,
+// following the current brightness
+bool rgb_matrix_indicators_user(void) {
+    uint8_t led = g_led_config.matrix_co[3][0];
+    uint8_t v   = rgb_matrix_config.hsv.v;
+    if (umapper_is_enabled()) {
+        rgb_matrix_set_color(led, 0, v, 0);
+    } else {
+        rgb_matrix_set_color(led, v, 0, 0);
+    }
+    return false;
+}
+#endif  // RGB_MATRIX_ENABLE
