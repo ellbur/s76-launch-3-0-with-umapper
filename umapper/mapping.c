@@ -174,6 +174,15 @@ static void remove_modifier(struct state *state, key_code k, struct modifier_key
       
       state->output_modifier_mask = new_mask;
 
+      // This releases output modifiers even if the held action key needs them.
+      // E.g. hold Left Shift, press Q (sends LSHIFT + ;), then let go of Shift
+      // while still holding Q: LSHIFT is released at once, so auto-repeat
+      // switches from ':' to ';', the same as an ordinary keyboard.
+      //
+      // Releasing old_mask & ~(new_mask | state->pressed_action_key.to_modifiers)
+      // instead (when has_pressed_action_key) would keep LSHIFT down until Q is
+      // released; remove_action_mapping() already releases it then. That fits
+      // umapper's model of a key press owning its modifiers, but is untested.
       release_modifiers(old_mask & ~new_mask, cb, data);
       
       break;
