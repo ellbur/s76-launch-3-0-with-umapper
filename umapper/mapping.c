@@ -173,12 +173,7 @@ static void remove_modifier(struct state *state, key_code k, struct modifier_key
       new_mask &= old_mask;
       
       state->output_modifier_mask = new_mask;
-      
-      modifier_set base_mask = new_mask;
-      if (state->has_pressed_action_key) {
-        base_mask |= state->pressed_action_key.to_modifiers;
-      }
-      
+
       release_modifiers(old_mask & ~new_mask, cb, data);
       
       break;
